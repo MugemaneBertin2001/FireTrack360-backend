@@ -14,7 +14,7 @@ import { Roles } from '../auth/decorators/roles.decorator';
 @UseGuards(GqlAuthGuard, RolesGuard)
 export class ExtinguishersResolver {
   constructor(private readonly extinguishersService: ExtinguishersService) {}
-  
+
   @Mutation(() => Extinguisher)
   @Roles(UserRole.MANAGER)
   createExtinguisher(
@@ -29,7 +29,6 @@ export class ExtinguishersResolver {
   findAll() {
     return this.extinguishersService.findAll();
   }
-
 
   @Query(() => Extinguisher, { name: 'extinguisher' })
   @Roles(UserRole.MANAGER)
@@ -54,5 +53,4 @@ export class ExtinguishersResolver {
   removeExtinguisher(@Args('id', { type: () => ID }) id: string) {
     return this.extinguishersService.remove(id);
   }
-
 }

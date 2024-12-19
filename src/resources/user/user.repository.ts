@@ -88,7 +88,9 @@ export class UserRepository {
    */
   async createUsers(users: CreateUserInput[]): Promise<User[]> {
     const userEntities = this.dataSource.getRepository(User).create(users);
-    const savedUsers = await this.dataSource.getRepository(User).save(userEntities);
+    const savedUsers = await this.dataSource
+      .getRepository(User)
+      .save(userEntities);
 
     return savedUsers;
   }
@@ -100,7 +102,9 @@ export class UserRepository {
    * @returns Updated user
    */
   async updateUser(id: string, updateData: Partial<User>): Promise<User> {
-    const result = await this.dataSource.getRepository(User).update(id, updateData);
+    const result = await this.dataSource
+      .getRepository(User)
+      .update(id, updateData);
 
     if (result.affected === 0) {
       throw new NotFoundException('User not found');

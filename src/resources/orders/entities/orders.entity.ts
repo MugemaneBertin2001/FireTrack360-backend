@@ -13,7 +13,6 @@ import { OrderItem } from './order-item.entity';
 import { OrderStatus, OrderType } from 'src/common/enums';
 import { User } from 'src/resources/user/entities/user.entity';
 
-
 registerEnumType(OrderStatus, { name: 'OrderStatus' });
 registerEnumType(OrderType, { name: 'OrderType' });
 
@@ -91,4 +90,3 @@ export class Order {
   updatedAt: Date;
 }
 export { OrderStatus, OrderType };
-

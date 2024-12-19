@@ -1,9 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { MailerService } from '@nestjs-modules/mailer';
 import { Order } from './entities/orders.entity';
-
 
 @Injectable()
 export class OrderNotificationsService {
+  private readonly logger = new Logger(OrderNotificationsService.name);
+
+  constructor(private readonly mailerService: MailerService) {}
+
   async sendOrderConfirmation(order: Order): Promise<void> {
     const message = {
       to: order.customer.email,
@@ -50,6 +54,15 @@ export class OrderNotificationsService {
   }
 
   private async sendNotification(message: any): Promise<void> {
-    // Implement your email sending logic here
+    try {
+      this.logger.log(
+        `Notification sent to ${message.to} with subject "${message.subject}"`,
+      );
+    } catch (error) {
+      this.logger.error(
+        `Failed to send notification to ${message.to}`,
+        error.stack,
+      );
+    }
   }
 }

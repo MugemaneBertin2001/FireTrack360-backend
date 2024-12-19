@@ -14,16 +14,20 @@ export const graphqlConfig: ApolloDriverConfig = {
     'graphql-ws': true,
   },
   context: ({ req }) => {
-    const authJwtService = new AuthJwtService(new JwtService({ secret: process.env.JWT_SECRET }));
+    const authJwtService = new AuthJwtService(
+      new JwtService({ secret: process.env.JWT_SECRET }),
+    );
     let user = null;
     const logger = new Logger('GraphQLContext');
 
     const authHeader = req.headers.authorization || '';
-    const token = authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
+    const token = authHeader.startsWith('Bearer ')
+      ? authHeader.split(' ')[1]
+      : null;
 
     if (token) {
       try {
-        user = authJwtService.validateToken(token);  
+        user = authJwtService.validateToken(token);
         logger.log('User authenticated:', user);
       } catch (err) {
         logger.error('Invalid or expired token:', err.message);
@@ -38,4 +42,3 @@ export const graphqlConfig: ApolloDriverConfig = {
     };
   },
 };
-

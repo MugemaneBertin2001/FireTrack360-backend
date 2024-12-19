@@ -6,7 +6,7 @@ import * as Joi from 'joi';
   imports: [
     NestConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`, 
+      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
       validationSchema: Joi.object({
         DB_HOST: Joi.string().required(),
         DB_PORT: Joi.number().default(3306),
@@ -14,7 +14,9 @@ import * as Joi from 'joi';
         DB_PASSWORD: Joi.string().required(),
         DB_NAME: Joi.string().required(),
         MYSQL_ROOT_PASSWORD: Joi.string().required(),
-        NODE_ENV: Joi.string().valid('development', 'production').default('development'),
+        NODE_ENV: Joi.string()
+          .valid('development', 'production')
+          .default('development'),
         SMTP_HOST: Joi.string().required(),
         SMTP_PORT: Joi.number().required(),
         SMTP_USER: Joi.string().required(),

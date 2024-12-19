@@ -2,7 +2,6 @@ import { InputType, Field } from '@nestjs/graphql';
 import { IsOptional, IsEnum, IsString, IsDateString } from 'class-validator';
 import { OrderStatus } from 'src/common/enums';
 
-
 @InputType()
 export class OrderFiltersInput {
   @Field(() => OrderStatus, { nullable: true })

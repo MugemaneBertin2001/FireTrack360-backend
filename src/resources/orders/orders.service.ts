@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
+  Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -9,7 +10,10 @@ import { OrderItem } from './entities/order-item.entity';
 import { Extinguisher } from '../extinguishers/entities/extinguisher.entity';
 import { OrderStatus, OrderType, ServiceType } from 'src/common/enums';
 import { Order } from './entities/orders.entity';
-import { CreateOrderInput, CreateServiceRequestInput } from './dto/create_orders.input';
+import {
+  CreateOrderInput,
+  CreateServiceRequestInput,
+} from './dto/create_orders.input';
 
 @Injectable()
 export class OrdersService {
@@ -18,6 +22,7 @@ export class OrdersService {
     private readonly orderRepository: Repository<Order>,
     @InjectRepository(OrderItem)
     private readonly orderItemRepository: Repository<OrderItem>,
+    private readonly logger = new Logger(OrdersService.name),
     @InjectRepository(Extinguisher)
     private readonly extinguisherRepository: Repository<Extinguisher>,
   ) {}
@@ -212,6 +217,7 @@ export class OrdersService {
   }
 
   private calculateExtinguisherPrice(extinguisher: Extinguisher): number {
+    console.log('Calculating extinguisher price', extinguisher);
     const basePrice = 100;
     return basePrice;
   }

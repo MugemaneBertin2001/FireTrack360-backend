@@ -213,7 +213,7 @@ export class UserService {
       await this.userRepository.updateUser(user.id, { verificationToken });
       this.emailService.sendTwoFactorAuthEmail(
         email,
-        this.authJwtService.validateToken(verificationToken).otp
+        this.authJwtService.validateToken(verificationToken).otp,
       );
 
       return {
@@ -287,8 +287,13 @@ export class UserService {
       }
 
       // Generate new OTP and verification token
-      const newVerificationToken = this.generateVerificationToken(email, user.role);
-      await this.userRepository.updateUser(user.id, { verificationToken: newVerificationToken });
+      const newVerificationToken = this.generateVerificationToken(
+        email,
+        user.role,
+      );
+      await this.userRepository.updateUser(user.id, {
+        verificationToken: newVerificationToken,
+      });
 
       // Send new OTP email
       await this.emailService.sendVerificationEmail(
