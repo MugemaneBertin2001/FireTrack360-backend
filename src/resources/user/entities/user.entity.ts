@@ -8,8 +8,18 @@ export enum UserRole {
   TECHNICIAN = 'Technician',
 }
 
+export enum UserStatus {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+  SUSPENDED = 'SUSPENDED',
+}
+
 registerEnumType(UserRole, {
   name: 'UserRole',
+});
+
+registerEnumType(UserStatus, {
+  name: 'UserStatus',
 });
 
 @ObjectType()
@@ -50,4 +60,8 @@ export class User {
   @Column({ default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   @Field()
   updatedAt: Date;
+
+  @Column({ type: 'enum', enum: UserStatus, default: UserStatus.ACTIVE })
+  @Field(() => UserStatus)
+  status: UserStatus;
 }

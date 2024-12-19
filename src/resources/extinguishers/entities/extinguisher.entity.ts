@@ -1,22 +1,12 @@
-// src/extinguishers/entities/extinguisher.entity.ts
-import { ObjectType, Field, ID, Float } from '@nestjs/graphql';
-import { User } from 'src/resources/user/entities/user.entity';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 import {
   Column,
   Entity,
-  ManyToOne,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-
-
-export enum ExtinguisherStatus {
-  ACTIVE = 'ACTIVE',
-  MAINTENANCE = 'MAINTENANCE',
-  EXPIRED = 'EXPIRED',
-  DECOMMISSIONED = 'DECOMMISSIONED',
-}
+import { ExtinguisherStatus } from '../enums/extinguisher-status.enum';
 
 @Entity('extinguishers')
 @ObjectType()
@@ -25,17 +15,13 @@ export class Extinguisher {
   @Field(() => ID)
   id: string;
 
-  @Column()
+  @Column({ unique: true })
   @Field()
   serialNumber: string;
 
   @Column()
   @Field()
   type: string;
-
-  @Column('decimal')
-  @Field(() => Float)
-  capacity: number;
 
   @Column({ nullable: true })
   @Field({ nullable: true })
@@ -45,14 +31,6 @@ export class Extinguisher {
   @Field()
   manufacturingDate: Date;
 
-  @Column('timestamp', { nullable: true })
-  @Field({ nullable: true })
-  lastServiceDate?: Date;
-
-  @Column('timestamp')
-  @Field()
-  nextServiceDate: Date;
-
   @Column({
     type: 'enum',
     enum: ExtinguisherStatus,
@@ -60,18 +38,6 @@ export class Extinguisher {
   })
   @Field(() => ExtinguisherStatus)
   status: ExtinguisherStatus;
-
-  @Column('uuid')
-  @Field(() => ID)
-  clientId: string;
-
-  @ManyToOne(() => User)
-  @Field(() => User)
-  client: User;
-
-  @Column({ nullable: true })
-  @Field({ nullable: true })
-  qrCode?: string;
 
   @Column('text', { nullable: true })
   @Field({ nullable: true })
@@ -84,4 +50,12 @@ export class Extinguisher {
   @UpdateDateColumn()
   @Field()
   updatedAt: Date;
+
+  @Column('varchar', { length: 50 })
+  @Field()
+  size: string;
+
+  @Column('varchar', { length: 50 })
+  @Field()
+  existinguisherType: string;
 }

@@ -1,13 +1,6 @@
-// src/extinguishers/dto/create-extinguisher.input.ts
-import { InputType, Field, Float } from '@nestjs/graphql';
-import {
-  IsNotEmpty,
-  IsNumber,
-  IsUUID,
-  IsOptional,
-  IsEnum,
-} from 'class-validator';
-import { ExtinguisherStatus } from '../entities/extinguisher.entity';
+import { InputType, Field } from '@nestjs/graphql';
+import { IsNotEmpty, IsOptional, IsEnum } from 'class-validator';
+import { ExtinguisherStatus } from '../enums/extinguisher-status.enum';
 
 @InputType()
 export class CreateExtinguisherInput {
@@ -19,10 +12,6 @@ export class CreateExtinguisherInput {
   @IsNotEmpty()
   type: string;
 
-  @Field(() => Float)
-  @IsNumber()
-  capacity: number;
-
   @Field({ nullable: true })
   @IsOptional()
   manufacturer?: string;
@@ -30,22 +19,19 @@ export class CreateExtinguisherInput {
   @Field()
   manufacturingDate: Date;
 
-  @Field()
-  nextServiceDate: Date;
-
   @Field(() => ExtinguisherStatus)
   @IsEnum(ExtinguisherStatus)
   status: ExtinguisherStatus;
 
-  @Field(() => String)
-  @IsUUID()
-  clientId: string;
-
-  @Field({ nullable: true })
-  @IsOptional()
-  qrCode?: string;
-
   @Field({ nullable: true })
   @IsOptional()
   notes?: string;
+
+  @Field()
+  @IsNotEmpty()
+  size: string;
+
+  @Field()
+  @IsNotEmpty()
+  existinguisherType: string;
 }
