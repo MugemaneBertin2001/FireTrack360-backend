@@ -4,7 +4,7 @@ import { EmailTemplateService } from './email-template.service';
 import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  imports:[HttpModule],
+  imports: [HttpModule],
   providers: [EmailService, EmailTemplateService],
   exports: [EmailService, EmailTemplateService],
 })

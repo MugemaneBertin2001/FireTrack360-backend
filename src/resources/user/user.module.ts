@@ -10,6 +10,8 @@ import { HashingService } from './hashing.service';
 import { EmailModule } from '../email/email.module';
 import { AuthJwtService } from './jwt.service';
 import { JwtModule } from '@nestjs/jwt';
+import { AdminUsersService } from './admin-users.service';
+import { AdminUsersResolver } from './admin-users.resolver';
 
 @Module({
   imports: [
@@ -31,7 +33,16 @@ import { JwtModule } from '@nestjs/jwt';
     UserResolver,
     AuthJwtService,
     Logger,
+    AdminUsersService,
+    AdminUsersResolver,
   ],
-  exports: [UserService, HashingService, UserRepository, AuthJwtService],
+  exports: [
+    UserService,
+    HashingService,
+    UserRepository,
+    AuthJwtService,
+    AdminUsersService,
+    AdminUsersResolver,
+  ],
 })
 export class UserModule {}

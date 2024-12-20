@@ -9,7 +9,6 @@ export class Response {
   status: number;
 }
 
-
 @ObjectType()
 export class VerificationResponse extends Response {
   @Field()

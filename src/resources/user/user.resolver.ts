@@ -75,9 +75,7 @@ export class UserResolver {
   }
 
   @Mutation(() => Response)
-  async resendVerificationOtp(
-    @Args('email') email: string,
-  ): Promise<Response> {
+  async resendVerificationOtp(@Args('email') email: string): Promise<Response> {
     return this.userService.resendVerificationOtp(email);
   }
 }

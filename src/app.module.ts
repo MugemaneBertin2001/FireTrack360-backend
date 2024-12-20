@@ -8,9 +8,13 @@ import { ConfigModule } from '@nestjs/config';
 import { GqlModule } from './resources/graphql/graphql.module';
 import { EmailModule } from './resources/email/email.module';
 import { HealthModule } from './health/health.module';
+import { AuthModule } from './resources/auth/auth,module';
+import { ExtinguishersModule } from './resources/extinguishers/extinguishers.module';
+import { OrdersModule } from './resources/orders/orders.module';
 
 @Module({
   imports: [
+    AuthModule,
     DatabaseModule,
     HealthModule,
     UserModule,
@@ -18,6 +22,8 @@ import { HealthModule } from './health/health.module';
     ConfigModule.forRoot(),
     EmailModule,
     ConfigModule,
+    ExtinguishersModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],

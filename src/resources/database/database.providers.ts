@@ -15,8 +15,8 @@ export const databaseProviders = [
         username: configService.get<string>('DB_USERNAME', 'root'),
         password: configService.get<string>('DB_PASSWORD', 'password'),
         database: configService.get<string>('DB_NAME', 'fire_extinguisher_db'),
-        synchronize: !isProd, 
-        logging: !isProd, 
+        synchronize: !isProd,
+        logging: !isProd,
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
         extra: {
           charset: 'utf8mb4_unicode_ci',
@@ -29,7 +29,7 @@ export const databaseProviders = [
         return dataSource;
       } catch (error) {
         logger.error('❌ Database initialization failed', { error });
-        process.exit(1); 
+        process.exit(1);
       }
     },
     inject: [ConfigService],
